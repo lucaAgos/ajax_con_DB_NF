@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <!-- serve per fornire informazioni al browser-->
+    <title> font end</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <div class="container-sm">
+        <p>Mail: <input type="text" id="mail" placeholder="Email" class="form-control" /> </p>
+        <p> Password: <input type="password" id="password" placeholder="password" class="form-control" /> </p>
+        <button id="sign-in" class="btn btn-outline-secondary">Registrati</button>
+        <button id="log-in" class="btn btn-outline-secondary">Accedi</button>
+        <h1 id="output"></h1>
+    </div>
+    <script>
+
+        $("#log-in").click(function () {
+            console.log("bravo");
+            var mail = $("#mail").val();  //var rende la variabile visibile nel contesto
+            var password = $("#password").val();
+
+            if (mail && password) {
+                console.log("mail:" + mail + " Password:  " + password);
+                $.ajax({
+                    url: "http://localhost:3000/log-in?user=" + mail + "&&" + "password=" + password,
+                    type: "GET",
+                    success: function (data) {  //call back una funzione dentro un'altro
+                        console.log("bravo")
+                        $("body").css("background-color", "green");
+                         //window.location.href="home.html";
+                         window.location.replace("home.html") //permetto di non fare tornare l'utente indietro
+                    },
+                    error: function (err) {
+                        $("body").css("background-color", "red");
+                        $("#output").html("Credenziali sbagliate");
+                       
+                    }
+
+
+                })
+
+            } else {
+                $("#output").html("i campi non possono essere vuoti")
+
+            }
+        });
+        $("#sign-in").click(function () {
+            var mail = $("#mail").val();  //var rende la variabile visibile nel contesto
+            var password = $("#password").val();
+
+            if (mail && password) {
+                $.ajax({
+                    url: "http://localhost:3000/Sign-in?user=" + mail + "&&" + "password=" + password,
+                    type: "GET",
+                    success: function (data) {
+                        $("body").css("background-color", "green");
+                        $("#output").html("Ti sei registrato con successo");
+                    },
+                    error: function (err) {
+                        $("body").css("backgroud-color", "red");
+                        $("#output").html("Utente già registato");
+                    }
+                })
+
+
+            } else {
+                $("#output").html("i campi non possono essere vuoti")
+            }
+
+
+        });
+
+
+    </script>
+</body>
+
+
+
+</html>

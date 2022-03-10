@@ -1,0 +1,3 @@
+npm init: serve per andare a configurare il file con le proprie scelte
+npm i express: serve per andare a scaricare la libreria di express che serve
+per semplificare il codice, dentro abbiamo anche i node modules
